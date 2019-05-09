@@ -1,0 +1,20 @@
+<div *ngFor="let user of userList | async">
+  <h1>{{ user.email }}</h1>
+  <p>Admin: {{ user.roles.admin }}</p>
+  <p>Editör: {{ user.roles.editor }}
+    <button class="button is-warning" (click)="editorStatus( user.uid, true )">
+      True
+    </button>
+    <button class="button is-danger" (click)="editorStatus( user.uid, false )">
+      False
+    </button>
+  </p>
+  <p>Subscriber: {{ user.roles.subscriber }}
+    <button class="button is-warning" (click)="subscriberStatus( user.uid, true )">
+      True
+    </button>
+    <button class="button is-danger" (click)="subscriberStatus( user.uid, false )">
+      False
+    </button>
+  </p>
+</div>
