@@ -1,0 +1,51 @@
+<form [formGroup]="tipForm" (ngSubmit)="onSubmit()">
+  <label>
+    Sportsbook:
+    <input type="text" formControlName="sportsbook" required>
+  </label>
+
+  <label>
+    Pick:
+    <input type="text" formControlName="pick" required>
+  </label>
+
+  <label>
+    Odd:
+    <input type="number" formControlName="odd" required>
+  </label>
+
+  <label>
+    Comment:
+    <input type="text" formControlName="comment">
+  </label>
+
+  <div formArrayName="tags">
+    <h3>Tags</h3> <button (click)="addTags()">Add Tags</button>
+
+    <div *ngFor="let tag of tags.controls; let i=index">
+      <!-- The repeated alias template -->
+      <label>
+        Tag:
+        <input type="text" [formControlName]="i">
+      </label>
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="!tipForm.valid">Submit</button>
+</form>
+
+<hr>
+
+
+<p>
+  Form Value: {{ tipForm.value | json }}
+</p>
+
+
+<p>
+  Form Status: {{ tipForm.status }}
+</p>
+
+<p>
+  <button (click)="updateProfile()">Update Profile</button>
+</p>
