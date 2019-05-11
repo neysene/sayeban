@@ -16,13 +16,15 @@ import { CoreModule } from './core/core.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { LoginComponent } from './login/login.component';
+import { AddTipComponent } from './add-tip/add-tip.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     AdminPanelComponent,
-    LoginComponent
+    LoginComponent,
+    AddTipComponent
   ],
   imports: [
     BrowserModule,

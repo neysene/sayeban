@@ -1,4 +1,21 @@
+<div class="navbar">
+
+  <a class="button is-info" routerLink="/dashboard">
+    Dashboard (canRead Guard)
+  </a>
+
+  <a class="button is-primary" routerLink="/add-tip">
+    Add Tip (Admin Guard)
+  </a>
+
+  <a class="button is-dark" routerLink="/admin">
+    Admin Panel (Admin Guard)
+  </a>
+
+  <a class="button is-link" routerLink="/login">
+    Login (No Guard)
+  </a>
+</div>
 <div class="content">
-  <app-login></app-login>
   <router-outlet></router-outlet>
 </div>
