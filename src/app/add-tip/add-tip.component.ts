@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { FormArray } from '@angular/forms';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { AuthService } from '../core/auth.service';
 
 @Component({
   selector: 'app-add-tip',
@@ -9,11 +11,17 @@ import { FormArray } from '@angular/forms';
   styleUrls: ['./add-tip.component.sass']
 })
 export class AddTipComponent {
+
+  user;
+
   tipForm = this.fb.group({
+    userID: [''],
     sportsbook: ['', Validators.required],
     pick: ['', Validators.required],
     odd: ['', Validators.required],
     comment: [''],
+    voteCount: [''],
+    playAt: [''],
     tags: this.fb.array([
       this.fb.control('')
     ])
@@ -23,13 +31,30 @@ export class AddTipComponent {
     return this.tipForm.get('tags') as FormArray;
   }
 
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private fb: FormBuilder,
+    private afs: AngularFirestore,
+    public auth: AuthService
+    ) {
+    this.auth.user$.subscribe(user => this.user = user)
+     }
 
+/** Fill form for test purposes (assure validity) */
   updateProfile() {
     this.tipForm.patchValue({
-      sportsbook: 'Nancy',
-      odd: 2.50,
-      pick: 'Balkes Kazanır'
+      sportsbook: 'Rota',
+      pick: "Madrid to Score",
+      odd: 1.75,
+      voteCount: [5, 2],
+      playAt: new Date(),
+    });
+  }
+
+  enterValues() {
+    this.tipForm.patchValue({
+      userID: this.user.uid,
+      voteCount: [0, 0],
+      playAt: new Date(),
     });
   }
 
@@ -37,9 +62,35 @@ export class AddTipComponent {
     this.tags.push(this.fb.control(''));
   }
 
+  async submitHandler() {
+    this.enterValues()
+    const formValue = this.tipForm.value;
+
+    try {
+      await this.afs.collection('tips').add(formValue).then(ref => {
+        console.log('Added the document with ID: ', ref.id);
+      })
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+/** alternative way for submitting */
   onSubmit() {
-    // TODO: Use EventEmitter with form value
     console.warn(this.tipForm.value);
+
+    var addDoc = this.afs.collection('tips').add({
+      userID: this.user.uid,
+      sportsbook: this.tipForm.get('sportsbook').value,
+      pick: this.tipForm.get('pick').value,
+      odd: this.tipForm.get('odd').value,
+      comment: this.tipForm.get('comment').value,
+      tags: this.tipForm.get('tags').value,
+      voteCount: [0, 0],
+      playAt: new Date(),
+    }).then(ref => {
+      console.log('Added document with ID: ', ref.id);
+    });
   }
 
 }

@@ -1,12 +1,13 @@
-<form [formGroup]="tipForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="tipForm" (ngSubmit)="submitHandler()">
+
   <label>
     Sportsbook:
-    <input type="text" formControlName="sportsbook" required>
+    <input type="text" class="form-control" formControlName="sportsbook" required>
   </label>
 
   <label>
     Pick:
-    <input type="text" formControlName="pick" required>
+    <input type="text" class="form-control" formControlName="pick" required>
   </label>
 
   <label>
@@ -19,13 +20,12 @@
     <input type="text" formControlName="comment">
   </label>
 
+<!-- -->
   <div formArrayName="tags">
-    <h3>Tags</h3> <button (click)="addTags()">Add Tags</button>
+    <h3>Tags</h3> <button type="button" (click)="addTags()">Add Tags</button>
 
     <div *ngFor="let tag of tags.controls; let i=index">
-      <!-- The repeated alias template -->
       <label>
-        Tag:
         <input type="text" [formControlName]="i">
       </label>
     </div>

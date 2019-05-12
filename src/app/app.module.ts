@@ -17,6 +17,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { LoginComponent } from './login/login.component';
 import { AddTipComponent } from './add-tip/add-tip.component';
+import { EditTipComponent } from './edit-tip/edit-tip.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { AddTipComponent } from './add-tip/add-tip.component';
     DashboardComponent,
     AdminPanelComponent,
     LoginComponent,
-    AddTipComponent
+    AddTipComponent,
+    EditTipComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

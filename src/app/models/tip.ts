@@ -1,6 +1,6 @@
 export class Tip {
   constructor(
-    public user: string,
+    public userID: string,
     public sportsbook: string,
     public pick: string,
     public odd: number,
