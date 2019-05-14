@@ -15,8 +15,11 @@
 </div>
 
 <div *ngFor="let tip of tips | async">
-  <h1>{{ tip.title }}</h1>
-  <p>{{ tip.content }}</p>
+  <h1>{{ tip.pick }}</h1>
+  <p>{{ tip.sportsbook }}</p>
+  <p>{{ tip.odd }}</p>
+  <p>{{ tip.playAt.seconds * 1000 | date: 'EEEE, MMMM d, y - HH:mm' }}</p>
+  <p>{{ tip.tipID }}</p>
 
   <button class="button is-danger" (click)="deletePost()" *ngIf="auth.canDelete(user)">
 

@@ -15,6 +15,7 @@ export class AddTipComponent {
   user;
 
   tipForm = this.fb.group({
+    tipID: [''],
     userID: [''],
     sportsbook: ['', Validators.required],
     pick: ['', Validators.required],
@@ -68,11 +69,22 @@ export class AddTipComponent {
 
     try {
       await this.afs.collection('tips').add(formValue).then(ref => {
+        this.afs.doc('tips/' + ref.id).update({ tipID: ref.id })
         console.log('Added the document with ID: ', ref.id);
       })
     } catch (err) {
       console.error(err)
     }
+  }
+
+  async altSubmitHandler() {
+    this.enterValues()
+    const formValue = this.tipForm.value;
+    //var newTipRef = this.afs.collection('testBed').doc();
+    //var setValue = newTipRef.set({
+    //  formValue.tipID = newTipRef.id,
+    //});
+
   }
 
 /** alternative way for submitting */

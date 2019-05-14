@@ -30,7 +30,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.postRef = this.afs.doc('posts/test-post')
     this.post$ = this.postRef.valueChanges()
-    this.tipsRef = this.afs.collection('posts')
+    this.tipsRef = this.afs.collection('tips')
     this.tips = this.tipsRef.valueChanges()
   }
 
